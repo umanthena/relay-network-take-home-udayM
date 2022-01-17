@@ -80,7 +80,7 @@ export default function VoterDetails() {
                   <TableCell align="center">%
                   {selectedSegment !== '' && (
                         <span className="selected-segment-percentage">
-                        (% of selected segment by ward)
+                        (% of {selectedSegment} by ward)
                         </span>
                         )}
                   </TableCell>
