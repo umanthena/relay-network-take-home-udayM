@@ -4,7 +4,7 @@ import VoterDetails from './components/VoterDetails'
 function App() {
   return (
     <div className="App">
-      <h2>Philadelphia Qualified Voter Listing 2018</h2>
+      <h1>Philadelphia Qualified Voter Listing 2018</h1>
       <VoterDataSummary></VoterDataSummary>
       <VoterDetails></VoterDetails>
     </div>
