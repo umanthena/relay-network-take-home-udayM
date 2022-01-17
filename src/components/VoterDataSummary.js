@@ -30,11 +30,13 @@ export default function VoterDataSummary(props) {
       let grandTotal = 0;
       totals.forEach(totalObj => {
         if (totalObj.name !== 'total') {
+          if(totalObj.value && typeof totalObj.value === 'number'){
+            grandTotal = grandTotal + totalObj.value;
+          }
           if (totalObj.value > topVal) {
+            topVal = totalObj.value;
             topObj = {...totalObj};
           }
-        } else {
-          grandTotal = totalObj.value;
         }
       });
       // calculating % of total votes for top segment

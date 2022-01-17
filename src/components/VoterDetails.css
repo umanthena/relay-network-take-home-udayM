@@ -1,0 +1,10 @@
+.segment-select-control {
+  width: 300px;
+}
+.selected-segment-percentage {
+  margin-left: 1rem;
+  color: red;
+}
+.segment-select-control {
+  margin-bottom: 1.5rem !important;
+}

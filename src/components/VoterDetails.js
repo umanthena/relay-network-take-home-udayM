@@ -1,11 +1,27 @@
 import React, {useEffect, useState} from 'react';
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 import VoterDataSummary from './VoterDataSummary';
 import { getVoterData } from '../services/VoterService';
+import SegmentSummary from './SegmentSummary';
+import './VoterDetails.css';
+
+const segmentOptions = [
+    {value: 'rep', label: 'Republican'},
+    {value: 'dem', label: 'Democrat'},
+    {value: 'other_party', label: 'Other Party'},
+    {value: 'male', label: 'Male'},
+    {value: 'female', label: 'Female'},
+    {value: 'unknown_sex', label: 'Unknown Sex'},
+    {value: 'black', label: 'Black'},
+    {value: 'hispanic', label: 'Hispanic'},
+    {value: 'white', label: 'White'},
+    {value: 'other_race', label: 'Other Race'},
+  ];
 
 export default function VoterDetails() {
     const [rows, setRows] = useState([]);
     const [totalRow, setTotalRow] = useState(null);
+    const [selectedSegment, setSelectedSegment] = useState('');
 
     // to fetch voter data from getVoterData service
     useEffect(() => {
@@ -19,11 +35,34 @@ export default function VoterDetails() {
         });
       }, []);
 
+      const handleSegmentSelection = (e) => {
+        setSelectedSegment(e.target.value);
+      };
+    
       return (
         <div>
           <VoterDataSummary data={totalRow}></VoterDataSummary>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} size="small">
+          <FormControl className="segment-select-control">
+        <InputLabel id="segment-select-label">Segment</InputLabel>
+        <Select
+          labelId="segment-select-label"
+          id="segment-select"
+          value={selectedSegment}
+          label="Segment"
+          onChange={handleSegmentSelection}
+        >
+          <MenuItem value="">Select</MenuItem>
+          {segmentOptions.map(segment => (
+            <MenuItem value={segment.value}>{segment.label}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      {selectedSegment !== '' && (
+        <SegmentSummary data={totalRow} segmentName={selectedSegment} />
+      )}
+     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <TableContainer sx={{ maxHeight: 500 }}>
+        <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
                   <TableCell>Ward</TableCell>
@@ -38,7 +77,13 @@ export default function VoterDetails() {
                   <TableCell align="center">White</TableCell>
                   <TableCell align="center">Other Race</TableCell>
                   <TableCell align="center">Total</TableCell>
-                  <TableCell align="center">%</TableCell>
+                  <TableCell align="center">%
+                  {selectedSegment !== '' && (
+                        <span className="selected-segment-percentage">
+                        (% of selected segment by ward)
+                        </span>
+                        )}
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -63,12 +108,18 @@ export default function VoterDetails() {
                     <TableCell align="center">{row.total}</TableCell>
                     <TableCell align="center">
                       {(totalRow?.total && totalRow.total !== 0) ? ((row.total * 100) / totalRow.total).toFixed(2) : 0} %
+                      {selectedSegment !== '' && (
+                        <span className="selected-segment-percentage">
+                        ({(row.total !== 0) ? ((row[selectedSegment] * 100) / row.total).toFixed(2) : 0} %)
+                        </span>
+                        )}
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
+          </Paper>
         </div>
       );
     }
