@@ -1,6 +1,6 @@
 # Getting Started
 
-In order to run this project, you must have 10.15.3 or later version of NodeJS
+In order to run this project, you must have NodeJS installed on your machine
 
 ## To run the app
 
