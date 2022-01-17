@@ -10,6 +10,10 @@ and then start the app by running `npm start`
 
 start the app in development mode, at [http://localhost:3000](http://localhost:3000) in your browser.
 
+## Unit Tests
+
+Execute unit test cases by running `npm test`
+
 ## Assumptions, Clarifications and Details
 
 Imported Material UI for table and dropdown components

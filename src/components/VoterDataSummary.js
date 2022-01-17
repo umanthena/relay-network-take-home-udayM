@@ -46,7 +46,7 @@ export default function VoterDataSummary(props) {
 
   return (
     <div className='summary'>
-        <div><b>Top Segment of All Voters:</b> {topSegment.label} - {topSegment.value} - {topSegment.percentage}%</div>
+        <div data-testid="top-segment-label"><b>Top Segment of All Voters:</b> {topSegment.label} - {topSegment.value} - {topSegment.percentage}%</div>
     </div>
   );
 }

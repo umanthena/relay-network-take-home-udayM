@@ -43,7 +43,7 @@ export default function SegmentSummary(props) {
 
   return (
     <div className="segment-summary">
-        <div><b>Selected segment:</b> {segmentData.label} - {segmentData.value} - {segmentData.percentage}%</div>
+        <div data-testid="selected-segment-details"><b>Selected segment:</b> {segmentData.label} - {segmentData.value} - {segmentData.percentage}%</div>
     </div>
   );
 }
