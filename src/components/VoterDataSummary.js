@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './VoterDataSummary.css';
+import { getFullName } from './SegmentName';
 
 export default function VoterDataSummary(props) {
     const [totals, setTotals] = useState([]);
@@ -12,7 +13,7 @@ export default function VoterDataSummary(props) {
         Object.keys(props.data).forEach(dataKey => {
           totalArr.push({
             name: dataKey,
-            label: dataKey,
+            label: getFullName(dataKey),
             value: props.data[dataKey]
           });
         });
@@ -30,13 +31,12 @@ export default function VoterDataSummary(props) {
       let grandTotal = 0;
       totals.forEach(totalObj => {
         if (totalObj.name !== 'total') {
-          if(totalObj.value && typeof totalObj.value === 'number'){
-            grandTotal = grandTotal + totalObj.value;
-          }
           if (totalObj.value > topVal) {
             topVal = totalObj.value;
             topObj = {...totalObj};
           }
+        } else {
+          grandTotal = totalObj.value;
         }
       });
       // calculating % of total votes for top segment
