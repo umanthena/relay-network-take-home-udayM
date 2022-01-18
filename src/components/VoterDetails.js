@@ -4,6 +4,7 @@ import VoterDataSummary from './VoterDataSummary';
 import { getVoterData } from '../services/VoterService';
 import SegmentSummary from './SegmentSummary';
 import './VoterDetails.css';
+import { getFullName } from './SegmentName';
 
 const segmentOptions = [
     {value: 'rep', label: 'Republican'},
@@ -80,7 +81,7 @@ export default function VoterDetails() {
                         <TableCell align="center">%
                             {selectedSegment !== '' && (
                                 <span className="selected-segment-percentage">
-                                (% of {selectedSegment} by ward)
+                                (% of {getFullName(selectedSegment)} by ward)
                                 </span>
                                 )}
                         </TableCell>

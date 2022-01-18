@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './SegmentSummary.css';
+import './SegmentSummary.css'
+import { getFullName } from './SegmentName';
 
 export default function SegmentSummary(props) {
   const [totals, setTotals] = useState([]);
@@ -11,7 +12,7 @@ export default function SegmentSummary(props) {
       Object.keys(props.data).forEach(dataKey => {
         totalArr.push({
           name: dataKey,
-          label: dataKey,
+          label: getFullName(dataKey),
           value: props.data[dataKey]
         });
       });
@@ -28,12 +29,11 @@ export default function SegmentSummary(props) {
     let grandTotal = 0;
     totals.forEach(totalObj => {
       if (totalObj.name !== 'total') {
-        if(totalObj.value && typeof totalObj.value === 'number'){
-          grandTotal = grandTotal + totalObj.value;
-        }
         if (totalObj.name === props.segmentName) {
           seletedObj = {...totalObj};
         }
+      } else {
+        grandTotal = totalObj.value;
       }
     });
     // calculate % of selected segment by taking grandTotal of votes
